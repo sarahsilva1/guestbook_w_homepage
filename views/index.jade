@@ -1,0 +1,36 @@
+
+extends layout
+
+block content
+    h1.
+     Add your name to my guestbook!
+    form#formAddUser(name="adduser", method = "post", action="/adduser")
+      span.userLabel Username:
+      input.form-group#inputUserName(type="test", placeholder="enter your name", name="username" required)
+
+      span.emailLabel      Email:
+      input.form-group#inputUserEmail(type="email", placeholder="email address", name="useremail" required)
+      br
+      span.messageLabel Message:
+      textarea.form-group#inputUserComment(type="test", placeholder="leave a message", name="usercomment" required)
+      br
+      button.btn.btn-default#btnSubmmit(type="submit")  submit
+      br
+      br
+      .tablestyle
+        table.table.table-hover
+         thead.guestbook_title
+          tr
+           td Name
+           td Email
+           td Comments
+           td
+         tbody
+          each user, i in userlist
+           tr
+            td
+             a(href="#{user._id}/usermessage")= user.username
+            td #{user.email}
+            td #{user.comment}
+            td
+             a.btn.btn-secondary(href="#{user._id}") Delete
